@@ -1,0 +1,143 @@
+1) Hooks:
+Hooks in React are functions that allow you to use state and other React features in functional components. Before hooks, state and lifecycle methods were only available in class components. Hooks enable you to manage state, side effects, context, and more, in a simpler and more reusable way.
+
+
+    A)      useState: Manages state in functional components.
+            useState is a Hook in React that allows you to add state to functional components. It returns an array with two elements: the current state value and a function to update that state. You can initialize the state with a value, and whenever the state changes, React re-renders the component.
+            you cant define useState hooks inside if/for or anything, it can only be used on the top lvl of your component
+
+            if you want to use prevstate value when updating new state value
+            why this is setCount((prevVal) => prevVal - 1);
+            over this setCount(count - 1);
+
+            is because of state updates being asynchronous in React. When you update the state, React may batch updates together, and that can lead to issues if you try to directly use the current state value.
+
+            Why the functional update is preferred:
+            State might not update immediately: React batches state updates to optimize performance, which means when you call setCount(count - 1), the count might not be the most up-to-date value, especially if multiple state updates are queued.
+
+            Using prevVal ensures consistency: By passing a function to setCount that gets the previous state value (prevVal), you guarantee that you're working with the most current state, no matter how many updates are queued or batched by React.
+
+            Example:
+            Consider this code where we have multiple updates to the state:
+
+            setCount(count - 1);
+            setCount(count - 1);
+            If count is 4, React might batch both updates and use the same count value for both, resulting in count being set to 3 instead of 2.
+
+            With the functional form:
+
+            setCount((prevVal) => prevVal - 1);
+            Each update is based on the most recent state value, so React will correctly calculate and apply the new state for each update.
+
+
+    B)      useEffect: The useEffect hook in React is used to perform side effects in function components, such as fetching data, subscribing to external services, or directly manipulating the DOM. It runs after the component renders and can be triggered on specific state or prop changes.
+
+            useEffect(() => {
+            console.log("resource changed");
+
+            return () => {
+            console.log("return from resource change");
+            };
+            }, [resourceType]);
+
+            In this code, the cleanup function is the function returned inside the useEffect hook. It runs when:
+
+            Before the effect re-runs: If the resourceType dependency changes, the cleanup function from the previous render will run first (before the effect runs again). basically the return runs first if the useEffect has ran once on first render
+            On component unmount: When the component is removed from the DOM, the cleanup function runs to perform any necessary cleanup (like cancelling subscriptions or timers).
+
+            
+    C)      useContext:The useContext hook in React allows you to access values from a Context without needing to pass props down manually through each component. It helps you share global state, like themes, authentication, or language preferences, across your app.
+
+
+    D)      useReducer: Manages complex state logic with a reducer function.The useReducer hook is a more advanced way to manage state in React, useful for handling complex state logic or when state changes depend on previous state. It's similar to useState, but instead of setting state directly, it uses dispatching actions to update the state through a reducer function.
+
+
+    E)      useMemo: The useMemo hook in React is used to memoize the result of an expensive calculation or computation, ensuring that it only re-calculates when its dependencies change. This can help optimize performance by preventing unnecessary recalculations on each render.
+
+    F)      useCallback: The useCallback hook in React is used to memoize a function, ensuring it doesn't get re-created on every render unless its dependencies change. This can help optimize performance, especially when passing functions as props to child components that might re-render unnecessarily.
+
+
+    G)      useRef: Creates a mutable object that persists between renders.The useRef hook in React is used to create mutable references that persist across renders without causing re-renders. It can be used to access DOM elements or to hold a mutable value that doesn’t trigger a re-render when it changes
+
+    
+
+2) Higher Order Components (HOC):
+What?: Functions that take a component and return an enhanced version.
+When?: Reuse component logic, share code, or manipulate component behavior.
+Why?: Promotes code reusability and separation of concerns.
+How?: Wrap a component with a function that adds or modifies its behavior.
+
+3) Life Cycle Methods of Components:
+Class Components: Traditional React components using ES6 classes.
+Mounting: Component is being created and inserted into the DOM.
+Updating: Component is being re-rendered as a result of changes.
+Unmounting: Component is being removed from the DOM.
+
+4) State management (all about data):
+State/Props: Internal state for a component/external data passed to a component.
+Props drilling: Passing props through multiple layers of components.
+Context: Provides a way to pass data through the component tree without passing props.
+
+5)Global State Management
+LocalStorage
+
+Redux or Zustand:
+How redux works?: Centralized state management using actions and reducers.
+Why?: For managing complex application states.
+When?: In large applications with a need for a single source of truth.
+Redux Toolkit (RTK): Simplifies Redux setup and usage.
+
+6) Custom Hooks:
+When to use?: Extracting and reusing component logic.
+Code: Functions prefixed with "use" returning stateful logic.
+Why?: Enhances code organization, reusability, and readability.
+
+7) Lazy Loading:
+Code splitting: Breaking down the application into smaller parts.
+Chunking: Loading only the necessary code chunks.
+Suspense: Pausing rendering until a component is ready.
+
+8) Virtual DOM vs DOM:
+Reconciliation Algorithm: Efficiently updates the UI based on state changes.
+React Fiber: A reimplementation of React's core algorithm.
+Renders: The process of updating the virtual DOM.
+Diff algorithm: Compares the previous and current state to determine changes.
+How does render work?: Updating the UI based on virtual DOM changes.
+
+9) SSR vs CSR (important):
+What?: Server-Side Rendering vs. Client-Side Rendering.
+Difference: Where rendering occurs - server or client.
+SEO and performance (SSR): Improved search engine optimization and initial load speed.
+
+10) Routing (Role-based access control-RBAC):
+react-router: Library for handling navigation in React applications.
+How do you manage protected routes?: Utilize authentication and authorization checks.
+How do you handle routes?: Define routes and components for navigation.
+Query params: Additional information passed in the URL.
+Dynamic routing: Creating routes dynamically based on data.
+
+11) Testing:
+React Testing Library: Testing library for React applications.
+Unit Testing: Testing individual units of code.
+Hack for interview: Emphasize writing testable code and demonstrate test cases.
+
+12) Async Tasks:
+API Calls: Fetching data from external sources.
+useEffect in depth: Managing side effects, including async operations.
+Events: Handling asynchronous events.
+Promises: A pattern for handling asynchronous operations.
+setTimeout: Delaying the execution of code.
+
+13) Reusability, Readability, modularity, testability (Coding Practices):
+
+14) Performance:
+Lazy loading: Loading resources only when needed.
+Asset optimization: Minifying and compressing JS/CSS code.
+Writing optimized code: Following best practices for efficient code.
+Bundler: Tools like Webpack to bundle and optimize code.
+CDN / Server level: Distributing assets for faster loading.
+Rendering of components: Optimizing rendering for better performance.
+
+15) Styling:
+Tailwind, StyleX, Bootstrap, Material UI, Ant UI, CSS / SCSS: Different styling approaches and libraries.
+

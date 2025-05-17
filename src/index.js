@@ -1,16 +1,16 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom"; // Fixed import
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter } from "react-router-dom"; // Fixed import
 import Blog from "./components/blog";
-import { Routes, Route } from "react-router-dom";
-import ProtectedRoutes from "./utils/protectedRoutes";
-import Login from "./components/login";
 import Admin from "./components/hooks/Admin";
-import PrepUseEffect from "./components/hooks/prepUseEffect";
 import CustomHookDemo from "./components/hooks/customHookDemo";
+import PrepUseEffect from "./components/hooks/prepUseEffect";
+import Login from "./components/login";
+import Notification from "./components/notification";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import ProtectedRoutes from "./utils/protectedRoutes";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -45,6 +45,7 @@ root.render(
             </>
           )}
           <Route path="/blog" element={<Blog />} />
+          <Route path="/Notification" element={<Notification />} />
         </Routes>
       </Suspense>
     </React.StrictMode>

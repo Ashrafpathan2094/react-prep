@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserList from "./UserList";
+import withAdminLayout from "./withAdminLayout";
 
 const users = [
   { id: 1, name: "Alice Johnson", role: "admin" },
@@ -14,7 +15,8 @@ const users = [
   { id: 10, name: "Jane Doe", role: "viewer" },
 ];
 
-const Blog = () => {
+const Blog = (props) => {
+  console.log("🚀 ~ Blog ~ props:", props);
   const [userData, setUserData] = useState(users);
   const [searchValue, setSearchValue] = useState("");
   const [selectedItem, setSelectedItem] = useState("all");
@@ -56,6 +58,8 @@ const Blog = () => {
 
   return (
     <>
+      <>{props?.firstName}</>
+      <>{props?.lastName}</>
       <input
         type="text"
         value={searchValue}
@@ -80,4 +84,4 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default React.memo(withAdminLayout(Blog));

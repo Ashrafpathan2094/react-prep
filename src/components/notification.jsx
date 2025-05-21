@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import NotificationComp from "./notificationComp";
 
 const notificationsList = [
@@ -18,6 +18,26 @@ const Notification = () => {
   const [notifications, setNotifications] = useState(notificationsList);
   const [showState, setShowState] = useState("showAll");
 
+  function fetchFakeData() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const success = false;
+        if (success) {
+          resolve("data fetched successfully");
+        } else {
+          reject("failed to fetch data");
+        }
+      }, 2000);
+    });
+  }
+
+  fetchFakeData()
+    .then((res) => {
+      console.log("res", res);
+    })
+    .catch((error) => {
+      console.log(error, "error");
+    });
   const filteredNotifications = useMemo(() => {
     if (showState === "showAll") {
       return notifications;

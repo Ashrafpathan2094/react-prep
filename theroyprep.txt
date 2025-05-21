@@ -10,6 +10,34 @@
 
 ---
 
+
+extra question --->> lifecycle of react component
+
+In class components, React provides dedicated lifecycle methods for each phase:
+
+| Phase      | Lifecycle Method                    | Purpose                                 |
+| ---------- | ----------------------------------- | --------------------------------------- |
+| Mounting   | `constructor()`                     | Setup initial state, bindings           |
+|            | `static getDerivedStateFromProps()` | Sync props to state (rarely used)       |
+|            | `render()`                          | Return JSX                              |
+|            | `componentDidMount()`               | DOM/API calls after initial render      |
+| Updating   | `shouldComponentUpdate()`           | Performance optimization                |
+|            | `getSnapshotBeforeUpdate()`         | Read DOM before update                  |
+|            | `componentDidUpdate()`              | Act after re-render                     |
+| Unmounting | `componentWillUnmount()`            | Cleanup (e.g., event listeners, timers) |
+
+
+
+  Function components don’t have lifecycle methods. Instead, React Hooks like useEffect, useState, and useRef simulate lifecycle behaviors.
+
+  | Lifecycle Phase | Equivalent Hook Logic                          |
+| --------------- | ---------------------------------------------- |
+| Mounting        | `useEffect(() => { ... }, [])`                 |
+| Updating        | `useEffect(() => { ... }, [state/props])`      |
+| Unmounting      | `useEffect(() => { return () => {...}; }, [])` |
+
+
+
 **2. State Management in Large-Scale Applications**
 
 **Q:** How would you manage the state in a large-scale React application?
@@ -25,10 +53,15 @@
 **A:** `useEffect` handles side effects in functional components. It runs after the component renders. If you provide a dependency array, it runs only when those dependencies change. An empty array means it runs once after the initial render. It can also return a cleanup function to clean up subscriptions or timers.
 
 ```jsx
+
 useEffect(() => {
-  setUserState("new user");
-  return () => setUserState("clean user");
+  const timeout = setTimeout(() => {
+    console.log("timeout ran");
+  }, 1000);
+
+  return () => clearTimeout(timeout);
 }, []);
+
 ```
 
 ---
@@ -75,15 +108,7 @@ const memoizedFn = useCallback(() => doSomething(id), [id]);
 **Q:** What is a higher-order component and when would you use one?
 
 **A:** An HOC is a function that takes a component and returns a new component with additional behavior. Use cases include authentication guards, layout wrappers, and reusable logic injection.
-
-```jsx
-const withLayout = (Component) => (props) => (
-  <Layout>
-    <Component {...props} />
-  </Layout>
-);
-```
-
+refer blog/home/withadminlayout component
 ---
 
 **9. useMemo vs React.memo**
